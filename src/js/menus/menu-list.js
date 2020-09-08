@@ -53,8 +53,8 @@ MenuConstructors.quote = Quote
 import Code from './code/index.js'
 MenuConstructors.code = Code
 
-import Emoticon from './emoticon/index.js'
-MenuConstructors.emoticon = Emoticon
+// import Emoticon from './emoticon/index.js'
+// MenuConstructors.emoticon = Emoticon
 
 import Table from './table/index.js'
 MenuConstructors.table = Table

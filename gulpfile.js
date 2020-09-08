@@ -1,7 +1,9 @@
 const path = require('path')
 const fs = require('fs')
 const gulp = require('gulp')
+const { src, dest, parallel } = require('gulp')
 const rollup = require('rollup')
+const source = require('vinyl-source-stream')
 const uglify = require('gulp-uglify')
 const sourcemaps = require('gulp-sourcemaps')
 const rename = require('gulp-rename')
@@ -17,19 +19,21 @@ const babel = require('rollup-plugin-babel')
 const gulpReplace = require('gulp-replace')
 
 // 拷贝 fonts 文件
-gulp.task('copy-fonts', () => {
-    gulp.src('./src/fonts/*')
-        .pipe(gulp.dest('./release/fonts'))
-})
+// gulp.task('copy-fonts', () => {
+//     gulp.src('./src/fonts/*')
+//         .pipe(gulp.dest('./release/fonts'))
+// })
 
-// 处理 css
-gulp.task('css', () => {
-    gulp.src('./src/less/**/*.less')
+function copy () {
+    return src('./src/fonts/*')
+        .pipe(dest('./release/fonts'))
+}
+
+function css () {
+    return src('./src/less/**/*.less')
         .pipe(less())
-        // 产出的未压缩的文件名
-        .pipe(concat('wangEditor.css'))
-        // 配置 postcss
-        .pipe(postcss([
+        .pipe(concat('wangEditor.css')) // 产出的未压缩的文件名
+        .pipe(postcss([ // 配置 postcss
             autoprefixer,
             cssgrace
         ]))
@@ -47,15 +51,14 @@ gulp.task('css', () => {
             return 'data:application/x-font-' + ext + ';charset=utf-8;base64,' + base64
         }))
         // 产出文件的位置
-        .pipe(gulp.dest('./release'))
+        .pipe(dest('./release'))
         // 产出的压缩后的文件名
         .pipe(rename('wangEditor.min.css'))
         .pipe(cssmin())
-        .pipe(gulp.dest('./release'))
-})
+        .pipe(dest('./release'))
+}
 
-// 处理 JS
-gulp.task('script', () => {
+function script () {
     // rollup 打包 js 模块
     return rollup.rollup({
         // 入口文件
@@ -78,17 +81,17 @@ gulp.task('script', () => {
             dest: './release/wangEditor.js'
         }).then(() => {
             // 待 rollup 打包 js 完毕之后，再进行如下的处理：
-            gulp.src('./release/wangEditor.js')
+            return src('./release/wangEditor.js')
                 // inline css
-                .pipe(gulpReplace(/__INLINE_CSS__/gm, function () {
-                    // 读取 css 文件内容
-                    var filePath = path.resolve(__dirname, 'release', 'wangEditor.css')
-                    var content = fs.readFileSync(filePath).toString('utf-8')
-                    // 替换 \n \ ' 三个字符
-                    content = content.replace(/\n/g, '').replace(/\\/g, '\\\\').replace(/'/g, '\\\'')
-                    return content
-                }))
-                .pipe(gulp.dest('./release'))
+                // .pipe(gulpReplace(/__INLINE_CSS__/gm, function () {
+                //     // 读取 css 文件内容
+                //     var filePath = path.resolve(__dirname, 'release', 'wangEditor.css')
+                //     var content = fs.readFileSync(filePath).toString('utf-8')
+                //     // 替换 \n \ ' 三个字符
+                //     content = content.replace(/\n/g, '').replace(/\\/g, '\\\\').replace(/'/g, '\\\'')
+                //     return content
+                // }))
+                .pipe(dest('./release'))
                 .pipe(sourcemaps.init())
                 // 压缩
                 .pipe(uglify())
@@ -96,27 +99,9 @@ gulp.task('script', () => {
                 .pipe(rename('wangEditor.min.js'))
                 // 生成 sourcemap
                 .pipe(sourcemaps.write(''))
-                .pipe(gulp.dest('./release'))
+                .pipe(dest('./release'))
         })
     })
-})
+}
 
-
-// 默认任务配置
-gulp.task('default', () => {
-    gulp.run('copy-fonts', 'css', 'script')
-
-    // 监听 js 原始文件的变化
-    gulp.watch('./src/js/**/*.js', () => {
-        gulp.run('script')
-    })
-    // 监听 css 原始文件的变化
-    gulp.watch('./src/less/**/*.less', () => {
-        gulp.run('css', 'script')
-    })
-    // 监听 icon.less 的变化，变化时重新拷贝 fonts 文件
-    gulp.watch('./src/less/icon.less', () => {
-        gulp.run('copy-fonts')
-    })
-})
-
+exports.default = parallel(css, copy, script)

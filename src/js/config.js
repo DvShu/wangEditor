@@ -49,80 +49,8 @@ const config = {
         '#ffffff'
     ],
 
-    // // 语言配置
-    // lang: {
-    //     '设置标题': 'title',
-    //     '正文': 'p',
-    //     '链接文字': 'link text',
-    //     '链接': 'link',
-    //     '插入': 'insert',
-    //     '创建': 'init'
-    // },
-
-    // 表情
-    emotions: [
-        {
-            // tab 的标题
-            title: '默认',
-            // type -> 'emoji' / 'image'
-            type: 'image',
-            // content -> 数组
-            content: [
-                {
-                    alt: '[坏笑]',
-                    src: 'http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/50/pcmoren_huaixiao_org.png'
-                },
-                {
-                    alt: '[舔屏]',
-                    src: 'http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/40/pcmoren_tian_org.png'
-                },
-                {
-                    alt: '[污]',
-                    src: 'http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/3c/pcmoren_wu_org.png'
-                }
-            ]
-        },
-        {
-            // tab 的标题
-            title: '新浪',
-            // type -> 'emoji' / 'image'
-            type: 'image',
-            // content -> 数组
-            content: [
-                {
-                    src: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/7a/shenshou_thumb.gif',
-                    alt: '[草泥马]'
-                },
-                {
-                    src: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/60/horse2_thumb.gif',
-                    alt: '[神马]'
-                },
-                {
-                    src: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/bc/fuyun_thumb.gif',
-                    alt: '[浮云]'
-                }
-            ]
-        },
-        {
-            // tab 的标题
-            title: 'emoji',
-            // type -> 'emoji' / 'image'
-            type: 'emoji',
-            // content -> 数组
-            content: '😀 😃 😄 😁 😆 😅 😂 😊 😇 🙂 🙃 😉 😓 😪 😴 🙄 🤔 😬 🤐'.split(/\s/)
-        },
-        // {
-        //     // tab 的标题
-        //     title: '手势',
-        //     // type -> 'emoji' / 'image'
-        //     type: 'emoji',
-        //     // content -> 数组
-        //     content: ['🙌', '👏', '👋', '👍', '👎', '👊', '✊', '️👌', '✋', '👐', '💪', '🙏', '️👆', '👇', '👈', '👉', '🖕', '🖐', '🤘']
-        // }
-    ],
-
     // 编辑区域的 z-index
-    zIndex: 10000,
+    zIndex: 1000,
 
     // 是否开启 debug 模式（debug 模式下错误会 throw error 形式抛出）
     debug: false,

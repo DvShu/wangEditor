@@ -37,13 +37,15 @@
     "babel-preset-latest": "^6.24.0",
     "cssgrace": "^3.0.0",
     "formidable": "^1.1.1",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-cssmin": "^0.1.7",
     "gulp-less": "^3.3.0",
     "gulp-postcss": "^6.4.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
+    "gulp-rollup-lightweight": "^1.0.11",
     "gulp-sourcemaps": "^2.5.0",
     "gulp-uglify": "^2.1.2",
     "koa": "^1.2.4",
@@ -54,7 +56,8 @@
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-eslint": "^3.0.0",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {}
 }
